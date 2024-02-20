@@ -1,6 +1,5 @@
 ﻿using BeautyTrackSystem.DLL.Models.Entities;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
 namespace Insurance.DLL.Models.Entities
 {

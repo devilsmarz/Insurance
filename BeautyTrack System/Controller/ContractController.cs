@@ -1,8 +1,7 @@
 ﻿using DLL;
 using Insurance.DLL.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using OfficeOpenXml;
 
 namespace BeautyTrack_System.Controller
 {
@@ -46,6 +45,53 @@ namespace BeautyTrack_System.Controller
 
             _applicationContext.Contracts.Add(model);
             _applicationContext.SaveChanges();
+        }
+        [HttpGet("getContractExcel")]
+        public ActionResult ExportToExcel()
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            var contracts = _applicationContext.Contracts.ToList();
+            using (ExcelPackage excelPackage = new ExcelPackage())
+            {
+                ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Contracts");
+
+                worksheet.Cells[1, 1].Value = "Id";
+                worksheet.Cells[1, 2].Value = "Date";
+                worksheet.Cells[1, 3].Value = "Amount";
+                worksheet.Cells[1, 4].Value = "TarifRate";
+                worksheet.Cells[1, 5].Value = "Insurance_Type";
+                worksheet.Cells[1, 6].Value = "ClientName";
+                worksheet.Cells[1, 7].Value = "ClientSurname";
+                worksheet.Cells[1, 8].Value = "ClientPatronymic";
+                worksheet.Cells[1, 9].Value = "ClientPassportCode";
+                worksheet.Cells[1, 10].Value = "ClientPhone";
+                worksheet.Cells[1, 11].Value = "ClientEmail";
+                worksheet.Cells[1, 12].Value = "Type";
+
+                int row = 2;
+                foreach (var contract in contracts)
+                {
+                    worksheet.Cells[row, 1].Value = contract.Id;
+                    worksheet.Cells[row, 2].Value = contract.Date;
+                    worksheet.Cells[row, 3].Value = contract.Amount;
+                    worksheet.Cells[row, 4].Value = contract.TarifRate;
+                    worksheet.Cells[row, 5].Value = contract.Insurance_Type;
+                    worksheet.Cells[row, 6].Value = contract.ClientName;
+                    worksheet.Cells[row, 7].Value = contract.ClientSurname;
+                    worksheet.Cells[row, 8].Value = contract.ClientPatronymic;
+                    worksheet.Cells[row, 9].Value = contract.ClientPassportCode;
+                    worksheet.Cells[row, 10].Value = contract.ClientPhone;
+                    worksheet.Cells[row, 11].Value = contract.ClientEmail;
+                    worksheet.Cells[row, 12].Value = contract.Type;
+                    row++;
+                }
+
+                MemoryStream stream = new MemoryStream();
+                excelPackage.SaveAs(stream);
+                stream.Position = 0;
+
+                return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Contracts.xlsx");
+            }
         }
     }
 }

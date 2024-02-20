@@ -21,10 +21,19 @@ namespace DLL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ContractModel>()
+          .Property(c => c.Amount)
+          .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<ContractModel>()
+                      .Property(c => c.TarifRate)
+                      .HasColumnType("decimal(10,2)");
+
+            modelBuilder.Entity<ContractModel>()
                       .HasOne(c => c.Branch)
                       .WithMany(b => b.Contracts)
                       .HasForeignKey(c => c.Id)
                       .OnDelete(DeleteBehavior.Restrict);
+
 
             base.OnModelCreating(modelBuilder);
         }
