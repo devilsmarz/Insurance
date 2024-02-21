@@ -16,6 +16,10 @@ namespace BeautyTrack_System.Controller
         public Int32 Get(int id)
         {
             var agentModel = _applicationContext.Agents.FirstOrDefault(x => x.Id == id);
+            if (agentModel == null)
+            {
+                return 0;
+            }
             TaxModel taxModel = new TaxModel();
             Int32 salary = agentModel.Contracts.Count()*taxModel.Bonus + taxModel.Salary;
             return salary;
