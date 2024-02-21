@@ -1,11 +1,13 @@
 ﻿using DLL;
 using Insurance.DLL.Models.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 
 namespace BeautyTrack_System.Controller
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class ContractController : ControllerBase
     {

@@ -1,10 +1,12 @@
 ﻿using DLL;
 using Insurance.DLL.Models.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeautyTrack_System.Controller
 {
+    [Authorize]
     public class TaxController : ControllerBase
     {
         private ApplicationContext _applicationContext { get; set; }
