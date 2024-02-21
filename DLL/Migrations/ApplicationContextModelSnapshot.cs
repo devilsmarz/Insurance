@@ -79,14 +79,14 @@ namespace Insurance.DLL.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int?>("UserEntityModelId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BranchId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserEntityModelId");
 
                     b.ToTable("Agents");
                 });
@@ -119,13 +119,19 @@ namespace Insurance.DLL.Migrations
             modelBuilder.Entity("Insurance.DLL.Models.Entities.ContractModel", b =>
                 {
                     b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
 
                     b.Property<int?>("AgentId")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("Amount")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("BranchId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ClientEmail")
                         .HasColumnType("nvarchar(max)");
@@ -163,6 +169,8 @@ namespace Insurance.DLL.Migrations
 
                     b.HasIndex("AgentId");
 
+                    b.HasIndex("BranchId");
+
                     b.ToTable("Contracts");
                 });
 
@@ -172,13 +180,11 @@ namespace Insurance.DLL.Migrations
                         .WithMany("Agents")
                         .HasForeignKey("BranchId");
 
-                    b.HasOne("BeautyTrackSystem.DLL.Models.Entities.UserEntityModel", "User")
+                    b.HasOne("BeautyTrackSystem.DLL.Models.Entities.UserEntityModel", null)
                         .WithMany("Agents")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserEntityModelId");
 
                     b.Navigation("Branch");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Insurance.DLL.Models.Entities.ContractModel", b =>
@@ -189,9 +195,8 @@ namespace Insurance.DLL.Migrations
 
                     b.HasOne("Insurance.DLL.Models.Entities.BranchModel", "Branch")
                         .WithMany("Contracts")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("BranchId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Agent");
 

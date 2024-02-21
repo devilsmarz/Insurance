@@ -1,11 +1,14 @@
 ﻿using BeautyTrackSystem.DLL.Enums;
 using Insurance.DLL.Models.Entities;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BeautyTrackSystem.DLL.Models.Entities
 {
     public class UserEntityModel
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Int32? Id { get; set; }
         [MaxLength(255)]
         public String? Email { get; set; }

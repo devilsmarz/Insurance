@@ -31,7 +31,7 @@ namespace DLL
             modelBuilder.Entity<ContractModel>()
                       .HasOne(c => c.Branch)
                       .WithMany(b => b.Contracts)
-                      .HasForeignKey(c => c.Id)
+                      .HasForeignKey(c => c.BranchId)
                       .OnDelete(DeleteBehavior.Restrict);
 
 

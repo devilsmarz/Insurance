@@ -41,6 +41,12 @@ namespace BeautyTrack_System.Controller
                 Type = value.Type,
                 Branch = _applicationContext.Branches.FirstOrDefault(x => x.Id == value.Branch.Id),
                 Agent = _applicationContext.Agents.FirstOrDefault(x => x.Id == value.Agent.Id),
+                ClientEmail = value.ClientEmail,
+                ClientName = value.ClientName,
+                ClientPassportCode = value.ClientPassportCode,
+                ClientPatronymic = value.ClientPatronymic,
+                ClientPhone = value.ClientPhone,
+                ClientSurname = value.ClientSurname,
             };
 
             _applicationContext.Contracts.Add(model);

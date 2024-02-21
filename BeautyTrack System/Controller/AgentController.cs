@@ -40,7 +40,6 @@ namespace BeautyTrack_System.Controller
                 Branch = _applicationContext.Branches.FirstOrDefault(x => x.Id == value.Branch.Id),
                 Name = value.Name,
                 Phone = value.Phone,
-                User = _applicationContext.Users.FirstOrDefault(x => x.Id == value.User.Id),
             };
 
             _applicationContext.Agents.Add(model);

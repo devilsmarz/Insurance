@@ -1,6 +1,7 @@
 ﻿using DLL;
 using Insurance.DLL.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BeautyTrack_System.Controller
 {
@@ -15,7 +16,7 @@ namespace BeautyTrack_System.Controller
         [HttpGet("{id}")]
         public Int32 Get(int id)
         {
-            var agentModel = _applicationContext.Agents.FirstOrDefault(x => x.Id == id);
+            var agentModel = _applicationContext.Agents.Include(p => p.Contracts).FirstOrDefault(x => x.Id == id);
             if (agentModel == null)
             {
                 return 0;

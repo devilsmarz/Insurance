@@ -1,10 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Insurance.DLL.Models.Entities
 {
     public class ContractModel
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Int32? Id { get; set; }
+        public Int32? BranchId { get; set; }
         public DateTime? Date { get; set; }
         public Decimal? Amount { get; set; }
         public Decimal? TarifRate { get; set; }
