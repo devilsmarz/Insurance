@@ -7,7 +7,6 @@ using OfficeOpenXml;
 namespace BeautyTrack_System.Controller
 {
     [Route("api/[controller]")]
-    [Authorize]
     [ApiController]
     public class ContractController : ControllerBase
     {
